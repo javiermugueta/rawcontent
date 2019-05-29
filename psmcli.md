@@ -1,11 +1,11 @@
-[2019-05-29 22:08:48] ----------------------------------------------------
-[2019-05-29 22:08:48] [0m'psm setup' was successful. Available services are:
-[2019-05-29 22:08:48] [0m  o accs : Oracle Application Container Cloud Service
-[2019-05-29 22:08:48] [0m  o ADBC : Oracle Autonomous Database Cloud
-[2019-05-29 22:08:48] [0m  o ADWC : Oracle Autonomous Data Warehouse Cloud
-[2019-05-29 22:08:48] [0m  o ADWCP : Oracle Autonomous Data Warehouse Cloud Platform
-[2019-05-29 22:08:48] [0m  o AIACS : Oracle Adaptive Intelligent Cloud Service AIACS
-[2019-05-29 22:08:48] [0m  o AIPOD : Oracle Adaptive Intelligent Cloud Service POD
+[2019-05-29 22:08:48] ---------------------------------------------------- <br>
+[2019-05-29 22:08:48] [0m'psm setup' was successful. Available services are:<br>
+[2019-05-29 22:08:48] [0m  o accs : Oracle Application Container Cloud Service<br>
+[2019-05-29 22:08:48] [0m  o ADBC : Oracle Autonomous Database Cloud<br>
+[2019-05-29 22:08:48] [0m  o ADWC : Oracle Autonomous Data Warehouse Cloud<br>
+[2019-05-29 22:08:48] [0m  o ADWCP : Oracle Autonomous Data Warehouse Cloud Platform<br>
+[2019-05-29 22:08:48] [0m  o AIACS : Oracle Adaptive Intelligent Cloud Service AIACS<br>
+[2019-05-29 22:08:48] [0m  o AIPOD : Oracle Adaptive Intelligent Cloud Service POD<br>
 [2019-05-29 22:08:48] [0m  o ANALYTICS : Oracle Analytics Cloud Classic
 [2019-05-29 22:08:48] [0m  o ANALYTICSSUB : Oracle Analytics Cloud Subscription
 [2019-05-29 22:08:48] [0m  o ANDC : Oracle Autonomous NoSQL Database Cloud Service
