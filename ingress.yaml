@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-world-ing
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - secretName: tls-secret
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: docker-hello-world-svc
+          servicePort: 8088
+
+
