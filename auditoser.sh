@@ -9,7 +9,7 @@ usage(){
     echo "Usage:"
     echo "      ./auditoser.sh compartmentid bucketname"
     echo "Example:"
-    echo "./auditoser.sh ocid1.compartment.oc1..aaaaaaaa3sz43qrfhsjmbibsrc6e7c2ftlt53gfnzifvlow2yoz7hk3ni2jq AUDIT"
+    echo "      ./auditoser.sh ocid1.compartment.oc1..aaaaaaaa3sz43qrfhsjmbibsrc6e7c2ftlt53gfnzifvlow2yoz7hk3ni2jq AUDIT"
 }
 #
 if [[ "$#" -ne 2 ]]; then
