@@ -5,7 +5,7 @@
 #
 filesystem_id=$1 #"ocid1.filesystem.oc1.eu_frankfurt_1.aaaaaaaaaaab5orimzzgcllqojxwiotfouwwm4tbnzvwm5lsoqwtcllbmqwtgaaa"
 numdays=$2
-limitdate=$(date -d "-$numdays days" --date="%Y-%m-%dT%H:%M:%S")
+limitdate=$(date -d "-$numdays days" --date="%Y-%m-%d %H:%M:%S")
 echo "Will delete snapshots older than "$limitdate
 # list of snapshots
 sninfo=`oci fs snapshot list --file-system-id $filesystem_id`
