@@ -1,10 +1,18 @@
 #!/bin/bash
 # jmu mar/22/2020
-# creates snapshot
-# deletes snapshots of file system with id argument $1 older than the number of days passed as $2 argument
+# 1) creates snapshot of file system with ocid of argument $1
+# 2) deletes snapshots  older than the number of days passed as $2 argument
 #
-filesystem_id=$1 #"ocid1.filesystem.oc1.eu_frankfurt_1.aaaaaaaaaaab5orimzzgcllqojxwiotfouwwm4tbnzvwm5lsoqwtcllbmqwtgaaa"
+filesystem_id=$1 
 numdays=$2
+#
+#
+# creating one snapshot now
+fecha=$(date)
+oci fs snapshot create --file-system-id $2 --name "snapshot_$fecha"   
+#
+# let's see if there are stuff to delete
+#
 limitdate=$(date -d "-$numdays days" +"%Y-%m-%d %H:%M:%S")
 echo "Will delete snapshots older than "$limitdate
 # list of snapshots
