@@ -24,7 +24,7 @@ do
     created=$(eval echo $created)
     #echo $name
     #echo $id
-    #echo $created
+    echo $created
     if [[ created < $limitdate ]]; then
         echo "Deleting snapshot $name"
         oci fs snapshot delete --snapshot-id $id --force
