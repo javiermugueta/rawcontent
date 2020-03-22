@@ -3,20 +3,20 @@
 # 1) creates snapshot of file system with ocid of argument $1
 # 2) deletes snapshots  older than the number of days passed as $2 argument
 #
-filesystem_id=$1 
+fs=$1 
 numdays=$2
 #
 #
 # creating one snapshot now
 fecha=$(date)
-oci fs snapshot create --file-system-id $filesystem_id --name "snapshot_$fecha"   
+oci fs snapshot create --file-system-id $fs --name "snapshot_$fecha"   
 #
 # let's see if there are stuff to delete
 #
 limitdate=$(date -d "-$numdays days" +"%Y-%m-%d %H:%M:%S")
 echo "Will delete snapshots older than "$limitdate
 # list of snapshots
-sninfo=`oci fs snapshot list --file-system-id $filesystem_id`
+sninfo=`oci fs snapshot list --file-system-id $fs`
 sninfo="${sninfo//time-created/time_created}"
 #echo $sninfo
 count=`echo $sninfo | jq '.data | length'`
