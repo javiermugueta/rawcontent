@@ -9,7 +9,7 @@ numdays=$2
 #
 # creating one snapshot now
 fecha=$(date)
-oci fs snapshot create --file-system-id $1 --name "snapshot_$fecha"   
+oci fs snapshot create --file-system-id $filesystem_id --name "snapshot_$fecha"   
 #
 # let's see if there are stuff to delete
 #
