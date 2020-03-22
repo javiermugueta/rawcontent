@@ -5,8 +5,8 @@
 #
 filesystem_id=$1 #"ocid1.filesystem.oc1.eu_frankfurt_1.aaaaaaaaaaab5orimzzgcllqojxwiotfouwwm4tbnzvwm5lsoqwtcllbmqwtgaaa"
 numdays=$2
-limitdate=$(date -d "+$2 days")
-echo "Will delete snapshots older than "$lastdate
+limitdate=$(date -d "-$2 days")
+echo "Will delete snapshots older than "$limitdate
 # list of snapshots
 sninfo=`oci fs snapshot list --file-system-id $filesystem_id`
 sninfo="${sninfo//time-created/time_created}"
@@ -25,7 +25,7 @@ do
     #echo $name
     #echo $id
     #echo $created
-    if [[ date < $limitdate ]]; then
+    if [[ created < $limitdate ]]; then
         echo "Deleting snapshot $name"
         oci fs snapshot delete --snapshot-id $id --force
     fi
