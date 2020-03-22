@@ -22,9 +22,9 @@ do
     id=$(eval echo $id)
     created=`echo $sninfo | jq .data[$i].time_created`
     created=$(eval echo $created)
-    echo "Snapshot name: "$name
-    echo "Snapshot id: "$id
-    echo "Snapshot creation date: "$created
+    #echo "Snapshot name: "$name
+    #echo "Snapshot id: "$id
+    #echo "Snapshot creation date: "$created
     if [[ $created < $limitdate ]]; then
         echo "Deleting snapshot $name"
         oci fs snapshot delete --snapshot-id $id --force
