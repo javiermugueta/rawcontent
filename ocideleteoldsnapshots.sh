@@ -25,7 +25,7 @@ do
     echo "Snapshot name: "$name
     echo "Snapshot id: "$id
     echo "Snapshot creation date: "$created
-    if [[ created < $limitdate ]]; then
+    if [[ $created < $limitdate ]]; then
         echo "Deleting snapshot $name"
         oci fs snapshot delete --snapshot-id $id --force
     fi
