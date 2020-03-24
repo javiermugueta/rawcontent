@@ -1,0 +1,54 @@
+#!/bin/bash
+# jmu 23/mar/2020
+#
+# stops, starts or scale a wls k8s cluster
+#
+usage(){
+    echo "Usage:"
+    echo "      wlsctl -r=[replicas] -o=[START|STOP] -y=[yaml file]"
+}
+#
+#
+if [[ "$#" -ne 3 ]]; then
+    echo
+    echo "Wrong number of arguments passed!"
+    echo
+    usage
+    exit
+fi
+for i in "$@"
+do
+case $i in
+    -o=*)
+    COMMAND="${i#*=}"
+    shift
+    ;;
+    -r=*)
+    REPLICAS="${i#*=}"
+    shift
+    ;;
+    -y=*)
+    YAMLFILE="${i#*=}"
+    shift
+    ;;
+    *)
+          usage
+          exit
+    ;;
+esac
+done
+# unfortunately it seems cloud shell and devcs doesn't have envsubst 
+#envsubst < domain.yaml
+#
+if [[ $COMMAND == "STOP" ]]; then
+    FLAG="NEVER"
+elif [[ $COMMAND == "START" ]]; then
+    FLAG="IF_NEEDED"
+fi
+cp "$YAMLFILE" "temp$YAMLFILE"
+sed -i "s/SERVERSTARTPOLICY/$FLAG/g" "temp$YAMLFILE"
+sed -i "s/REPLICAS/$REPLICAS/g" "temp$YAMLFILE"
+#
+kubectl apply -f "temp$YAMLFILE"
+#
+#
