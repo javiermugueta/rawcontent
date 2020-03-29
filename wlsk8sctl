@@ -5,7 +5,7 @@
 #
 usage(){
     echo "Usage:"
-    echo "      wlsctl -r=[replicas] -o=[START|STOP] -y=[yaml file]"
+    echo "      wlsctl -r=[replicas] -o=[START|STOP] -y=[template yaml file]"
 }
 #
 #
@@ -45,10 +45,17 @@ if [[ $COMMAND == "STOP" ]]; then
 elif [[ $COMMAND == "START" ]]; then
     FLAG="IF_NEEDED"
 fi
-cp "$YAMLFILE" "temp$YAMLFILE"
-sed -i "s/SERVERSTARTPOLICY/$FLAG/g" "temp$YAMLFILE"
-sed -i "s/REPLICAS/$REPLICAS/g" "temp$YAMLFILE"
 #
-kubectl apply -f "temp$YAMLFILE"
+cp "$YAMLFILE" "temp$YAMLFILE"
+#
+if [[ $(uname) == "Darwin" ]]; then
+    echo "TODO: pending fix for sed in Mac"
+    exit
+else
+    sed -i "s/SERVERSTARTPOLICY/$FLAG/g" "temp$YAMLFILE"
+    sed -i "s/REPLICAS/$REPLICAS/g" "temp$YAMLFILE"
+fi
+#
+kubectl apply -f "temp$YAMLFILE" 
 #
 #
