@@ -18,10 +18,10 @@ CREATE OR REPLACE PACKAGE oci_cloud_cost AS
    procedure getcosts; 
    endpoint varchar2(128) := 'https://usageapi.eu-frankfurt-1.oci.oraclecloud.com';
    method varchar2(64) := '/20200107/usage';
-   userocid varchar2(128) :=  'ocid1.user.oc1..aaaaaaaaeqnv73xqbr4s3mv46wihbskl7ejybncjtslojjgt6dbvpe5htroq';
-   tenancyocid varchar2(128) := 'ocid1.tenancy.oc1..aaaaaaaaeicdft76mmsryhfleu2zqsbfnvaljkbkevjpnkznnaqdbhtdadpa';
-   privatekey varchar2(4000) := 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCgAJLhYrvtm6xvgsIJDFzqTKzvLRgromTyRUgZvMJriW3ebPE1RrcwyO7O6BBU1yYzGK4D8I1EC61g+hvy5c+dt2hDIbrcCqMmCr9ebMVgBucXIIkaskUJxHlWC6ZEO/PB2lg+rwWJi55gaJGSXcw5ElgBYeDaLdrfnki4WC6sT7iu4GtM/4Piw/UoFq5xMdmibDyLiebJlut7esX/5RSzu4cBQTP5PDbxAi87SizMM5k5DvUy1tpcXI4e51LV7XUIeimAaSPMvYOr8KiCXUeBttkw0R7vIn6QLwRAi0vt9spjVgJTqnWJVb2yL/T1/ciYm5r+Yi6uog2K35pIuMiLAgMBAAECggEAAhClKfyEvBHUyBGndcdvkY87ciYiWDnTKgn5NBUqwImNs0peU0IzjhEh0pDN2SfNCelzzCriyoczYyYx4yYn0lDHgIpNvOue5G2iFP1muhEMvXssLyiFhJVBEvpj2HXvn50KTjDNwP3eJZS5QEAuqRPoB93esYzYSieNp7ds+XNUDxoSUXiBDjOyzC+mTafG54XPlFt93eNPyjYiHkfzyJWNfhwpW09t4aucjz2joVSag0L6pGvaGmF9brxB2IKR7KcP87gmhyXeHisqjRKFXBoFaXmsPKck2K8WEv2HnDjKqlictDjczAuXW9G923cm4uvD1UbxTsxZnfuvjUdIUQKBgQDQQi6rTD+sJz8Y/9udmO4dBYKcwQFqSHIoS475VCtM5rl7cSxJJS58Ww6RYogmuJJ8agTtz5UiS9irvajl6Fw887isQgc0GwASz2hxYYFgmy8aYftnYq+c2qrhgD1BBIBzcbMprkTSb74COdpojKkCeRANMZEAm1loj75zQeKhWwKBgQDErm7V+8JBjPvbIf3hloM6E2OqiPxWWvRVXXG6SO+vUyLPYpXpOQFP6xoi3C2okFr+R+dnQp8h+bywhilQzPS2k3k5AmzB2hNqskaFpZqmGBoG5H/zEvd/WJ6xFEL3D+Eco96OV76dBjSwzZqAZMnY6qJ6q1cU1MmAnIHKkytskQKBgE7CiMXNq1Le8NTyhkreuEaPe+rubyuTxGCK2sJeW5XUuBcAIQB0qFTtVuASxGzoZrXYno6Vb9AtoP6qVoLEUoXWomO7AOBqyadTeytN9dDkP3cZ0SszPjjy1ac8iW3aVv3R5TEBMBPpoJFU8c2STKSbxj9HHJB/L9wEaMFMDHp7AoGBAIUwzxQPyqwTalcqPMBw6esBSGQrIh7kt0O75RFO5SmothEU5QosNWxGfMuQqUbWgxhh3x35asRaV+J+6Cm0sh+V3OizcK0SHkYJ9mH5FLJX7gAu60rT1FEj1Ut7uiGPWlXHzyY723SAyFvW0EMUffBsbJ1/vJf5xX9X/TkO0sBRAoGAGozyN2+pCGfkYQeDKCLhpCAN2Zesn9TYYNbJg41nwjrjNzz9/LQvqY4lc+Bwy+J3ldg56JGMbJe9IXnWguvzJGAJBkB8Q00XaFDbDazDYUYDjZx5S4VsbKh8Z4CVnITi2aDNmZUU/Y+jA4S1UBod7OgOvsuCE07W6o3VwdI3TBE=';
-   fingerprint varchar2(64) := 'eb:0b:84:b2:ef:0a:85:5e:b9:eb:c8:f7:4d:b1:af:71';
+   userocid varchar2(128) :=  'ocid1.user.oc1..aa...q';
+   tenancyocid varchar2(128) := 'ocid1.tenancy.oc1..a...a';
+   privatekey varchar2(4000) := 'MIIE...TBE=';
+   fingerprint varchar2(64) := 'e...1';
 end oci_cloud_cost;
 /
 -- the logic is get the data from midnight the day before yesterday and midnight yesterday
