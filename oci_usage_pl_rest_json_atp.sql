@@ -18,6 +18,7 @@ CREATE OR REPLACE PACKAGE oci_cloud_cost AS
    procedure getcosts; 
    endpoint varchar2(128) := 'https://usageapi.eu-frankfurt-1.oci.oraclecloud.com';
    method varchar2(64) := '/20200107/usage';
+   -- put valid cfedentials here
    userocid varchar2(128) :=  'ocid1.user.oc1..aa...q';
    tenancyocid varchar2(128) := 'ocid1.tenancy.oc1..a...a';
    privatekey varchar2(4000) := 'MIIE...TBE=';
