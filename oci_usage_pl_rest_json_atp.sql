@@ -25,7 +25,7 @@ CREATE OR REPLACE PACKAGE oci_cloud_cost AS
    days_back number := 3; -- number of days before today to get data
 end oci_cloud_cost;
 /
--- the logic is get the data from midnight the day before yesterday and midnight yesterday
+-- the logic is get the data from midnight the days we configure in days_baxk before today and midnight 1 day before
 CREATE OR REPLACE PACKAGE BODY oci_cloud_cost AS 
 procedure getcosts is
         resp DBMS_CLOUD_TYPES.resp;
