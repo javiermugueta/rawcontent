@@ -1,5 +1,5 @@
 #!/bin/bash
-# jmugueta may 2021
+# jmu may 2021
 #
 # recursive list of compute instances in tenancy
 # CREATING_IMAGE, MOVING, PROVISIONING, RUNNING, STARTING, STOPPED, STOPPING, TERMINATED, TERMINATING
@@ -44,20 +44,19 @@ indent() {
 #
 if [[ -z $1  ]] 
 then
+    echo 
     echo "Please provide an argument with values such as:"
     echo " CREATING_IMAGE, MOVING, PROVISIONING, RUNNING, STARTING, STOPPED, STOPPING, TERMINATED, TERMINATING"
+    echo
     exit 255
 fi
 #
 # hands on!
 #
 echo 
-echo "Looking for instances in $1 state in the whole tenancy"
+echo "Looking for instances in $1 state in the whole tenancy..."
+echo
 tenancy=$(oci iam availability-domain list --all | jq -r '.data[0]."compartment-id"')
-#
-echo
-echo "Starting..."
-echo
 #
 recorre $tenancy $1 
 #
