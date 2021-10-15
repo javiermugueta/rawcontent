@@ -24,8 +24,12 @@ work(){
         #
         result=`$command`
         # this variable stores the records
-        records=`echo $result | jq '.data'`
+        records=`echo $result | jq '.data'` 
+        # removing []
+        records="${records#?}"
+        records="${records%?}"
         echo ${records} >> ${file}
+        #echo ${records}
         # this variable stores the next page of results
         nextpage=`echo $result | jq '.["opc-next-page"]'`
         nextpage=$(eval echo $nextpage)
@@ -34,8 +38,8 @@ work(){
             # no more pages
             break
         fi
-        # recurring calls with page parameter
-        command="oci audit event list --compartment-id ${compartment} --start-time ${initial} --end-time ${final} --page ${nextpage}"
+        # consecutive calls with page parameter
+        command="oci audit event list --compartment-id ${compartment} --start-time ${initial} --end-time ${final} --page ${nextpage} --skip-deserialization"
         #echo ${command}
         # don't wanna fry the cpu
         sleep 0.01
