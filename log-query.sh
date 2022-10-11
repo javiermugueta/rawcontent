@@ -1,13 +1,13 @@
 #!/bin/bash
 # jmu 10/Oct/2022
-# this command searchs in the logs of the current day
+# this command searchs in the logs of the current hour
 # performing a fulltext search case insesnsitive
 #
 # usage
 #
 usage() {
     echo 
-    echo "Searchs in the logs of the current day, fulltext, case insensitive"
+    echo "Searchs in the logs of the current hour, fulltext, case insensitive"
     echo
     echo "usage: ./log-query.sh <search-string> <compartment-name> <log-group-name> <log-name>"
     echo "<search-string> and <compartment-name> are mandatory"
@@ -39,10 +39,10 @@ compname=$2
 groupname=$3
 logname=$4
 #
-tstart=$(date +"%Y-%m-%dT00:00:00.000000Z")
+tstart=$(date +"%Y-%m-%dT%H:00:00.000000Z")
 export start_time=$tstart
 echo "Logs start time: "${green}$tstart${reset}
-tend=$(date +"%Y-%m-%dT23:59:59.999999Z")
+tend=$(date +"%Y-%m-%dT%H:59:59.999999Z")
 echo "Logs end time: "${green}$tend${reset}
 export end_time=$tend
 #
