@@ -7,11 +7,11 @@
 #
 usage() {
     echo 
-    echo "Searchs in the logs of the current hour, fulltext, case insensitive"
+    echo "Searchs in the logs of the current hour or day, fulltext, case insensitive"
     echo
     echo "usage: ./log-query.sh <time-scope> <search-string> <compartment-name> <log-group-name> <log-name>"
     echo "<time-scope>, <search-string> and <compartment-name> are mandatory"
-    echo "<time-scope> can be H|h (current hour) or D|d (current day"
+    echo "<time-scope> can be H|h (current hour) or D|d (current day)"
     echo "search-string special value: @@@ -> retrives all records"
     echo
     echo "examples:"
