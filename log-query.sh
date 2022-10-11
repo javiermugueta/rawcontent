@@ -11,11 +11,13 @@ usage() {
     echo
     echo "usage: ./log-query.sh <search-string> <compartment-name> <log-group-name> <log-name>"
     echo "<search-string> and <compartment-name> are mandatory"
+    echo "search-string special value: @@@ -> retrives all records"
     echo
     echo "examples:"
     echo "./log-query.sh core.error.internal xplrDV"
     echo "./log-query.sh core.error.internal xplrDV PSD2_Dv"
     echo "./log-query.sh core.error.internal xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
+    echo "./log-query.sh @@@ xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
     echo
     exit 255
 }
@@ -75,7 +77,13 @@ if [[ ! -z $logname ]]; then
     echo "Log name ocid: "${green}$logocid${reset}
     subquery="search \"$compocid/$groupocid/$logocid"
 fi
+# 
+if [[ $query == "@@@" ]]; then
+    fullquery=$subquery\"
+else
 fullquery=$subquery\"" | where logContent='*$query*'"
+fi
+#
 echo "Search query: "${green}$fullquery${reset}
 # 
 echo "Search results:"
