@@ -20,6 +20,8 @@ usage() {
     echo "./log-query.sh d core.error.internal xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
     echo "./log-query.sh h @@@ xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
     echo
+    echo "Please note that number of records retrieved can be limited by the service"
+    echo
     exit 255
 }
 note(){
@@ -100,7 +102,7 @@ fi
 echo "Search query: "${green}$fullquery${reset}
 # 
 echo "Search results:"
-oci logging-search search-logs --search-query "$fullquery" --time-start $start_time --time-end $end_time | jq '.data.results[].data.logContent.data.message'
+oci logging-search search-logs --search-query "$fullquery" --time-start $start_time --time-end $end_time --limit 999999999 | jq '.data.results[].data.logContent.data.message'
 echo "End, bye!!"
 # EOF
 
