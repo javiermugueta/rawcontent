@@ -9,15 +9,16 @@ usage() {
     echo 
     echo "Searchs in the logs of the current hour, fulltext, case insensitive"
     echo
-    echo "usage: ./log-query.sh <search-string> <compartment-name> <log-group-name> <log-name>"
-    echo "<search-string> and <compartment-name> are mandatory"
+    echo "usage: ./log-query.sh <time-scope> <search-string> <compartment-name> <log-group-name> <log-name>"
+    echo "<time-scope>, <search-string> and <compartment-name> are mandatory"
+    echo "<time-scope> can be H|h (current hour) or D|d (current day"
     echo "search-string special value: @@@ -> retrives all records"
     echo
     echo "examples:"
-    echo "./log-query.sh core.error.internal xplrDV"
-    echo "./log-query.sh core.error.internal xplrDV PSD2_Dv"
-    echo "./log-query.sh core.error.internal xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
-    echo "./log-query.sh @@@ xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
+    echo "./log-query.sh d core.error.internal xplrDV"
+    echo "./log-query.sh d core.error.internal xplrDV PSD2_Dv"
+    echo "./log-query.sh d core.error.internal xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
+    echo "./log-query.sh h @@@ xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
     echo
     exit 255
 }
@@ -29,22 +30,34 @@ red=`tput setaf 1`
 green=`tput setaf 2`
 reset=`tput sgr0`
 #
-if [[ -z $1 || -z $2 ]] 
+if [[ -z $1 || -z $2 || -z $3 ]] 
 then
     usage
 fi
 #params
-query=$1
-compname=$2
-groupname=$3
-logname=$4
+scope=$1
+query=$2
+compname=$3
+groupname=$4
+logname=$5
 #
-tstart=$(date +"%Y-%m-%dT%H:00:00.000000Z")
-export start_time=$tstart
-echo "Logs start time: "${green}$tstart${reset}
-tend=$(date +"%Y-%m-%dT%H:59:59.999999Z")
-echo "Logs end time: "${green}$tend${reset}
-export end_time=$tend
+if [[ $scope == "H" || $scope == "h" ]]; then
+    tstart=$(date +"%Y-%m-%dT%H:00:00.000000Z")
+    export start_time=$tstart
+    echo "Logs start time: "${green}$tstart${reset}
+    tend=$(date +"%Y-%m-%dT%H:59:59.999999Z")
+    echo "Logs end time: "${green}$tend${reset}
+    export end_time=$tend
+elif [[ $scope == "D" || $scope == "d" ]]; then
+    tstart=$(date +"%Y-%m-%dT00:00:00.000000Z")
+    export start_time=$tstart
+    echo "Logs start time: "${green}$tstart${reset}
+    tend=$(date +"%Y-%m-%dT23:59:59.999999Z")
+    echo "Logs end time: "${green}$tend${reset}
+    export end_time=$tend
+else
+    usage
+fi
 #
 # locating ocid's by their names
 compocid=$(oci iam compartment list --compartment-id-in-subtree true --all | jq --arg compname "$compname" '.data[] | select(."name"==$compname)' | jq -r ."id")
