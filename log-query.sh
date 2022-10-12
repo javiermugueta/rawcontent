@@ -10,18 +10,18 @@ usage() {
     echo "Searchs in the logs of the current hour or day, fulltext, case insensitive"
     echo
     echo "usage: ./log-query.sh <forrmat> <time-tscope> <search-string> <compartment-name> <log-group-name> <log-name>"
-    echo "<format> <time-tscope>, <search-string> and <compartment-name> are mandatory"
-    echo "<format> can be J|j (json record) or T|t (just the message field)"
+    echo "${red}<format> <time-tscope>, <search-string> and <compartment-name> are mandatory"
+    echo "${green}<format> can be J|j (json record) or T|t (just the message field)"
     echo "<time-tscope> can be H|h (current hour) or D|d (current day)"
-    echo "search-string special value: @@@ -> retrives all records"
+    echo "search-string special value: @@@ -> retrives all records${reset}"
     echo
     echo "examples:"
     echo "./log-query.sh t d core.error.internal xplrDV"
     echo "./log-query.sh t d core.error.internal xplrDV PSD2_Dv"
     echo "./log-query.sh t d core.error.internal xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
-    echo "./log-query.sh j h @@@ xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
+    echo "./log-query.sh j h @@@ xplrDV PSD_Dv fnc_g_s_dv_nvk"
     echo
-    echo "Please note that some kind of log records doesn't have a message field, use json forrmat instead"
+    echo "${red}Please note that some kind of log records doesn't have a message field, use json forrmat instead"
     echo "Please note that number of records retrieved can be limited by the service"
     echo
     exit 255
