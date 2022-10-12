@@ -9,17 +9,19 @@ usage() {
     echo 
     echo "Searchs in the logs of the current hour or day, fulltext, case insensitive"
     echo
-    echo "usage: ./log-query.sh <time-scope> <search-string> <compartment-name> <log-group-name> <log-name>"
-    echo "<time-scope>, <search-string> and <compartment-name> are mandatory"
-    echo "<time-scope> can be H|h (current hour) or D|d (current day)"
+    echo "usage: ./log-query.sh <forrmat> <time-tscope> <search-string> <compartment-name> <log-group-name> <log-name>"
+    echo "<format> <time-tscope>, <search-string> and <compartment-name> are mandatory"
+    echo "<format> can be J|j (json record) or T|t (just the message field)"
+    echo "<time-tscope> can be H|h (current hour) or D|d (current day)"
     echo "search-string special value: @@@ -> retrives all records"
     echo
     echo "examples:"
-    echo "./log-query.sh d core.error.internal xplrDV"
-    echo "./log-query.sh d core.error.internal xplrDV PSD2_Dv"
-    echo "./log-query.sh d core.error.internal xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
-    echo "./log-query.sh h @@@ xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
+    echo "./log-query.sh t d core.error.internal xplrDV"
+    echo "./log-query.sh t d core.error.internal xplrDV PSD2_Dv"
+    echo "./log-query.sh t d core.error.internal xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
+    echo "./log-query.sh j h @@@ xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
     echo
+    echo "Please note that some kind of log records doesn't have a message field, use json forrmat instead"
     echo "Please note that number of records retrieved can be limited by the service"
     echo
     exit 255
@@ -37,20 +39,21 @@ then
     usage
 fi
 #params
-scope=$1
-query=$2
-compname=$3
-groupname=$4
-logname=$5
+format=$1
+tscope=$2
+query=$3
+compname=$4
+groupname=$5
+logname=$6
 #
-if [[ $scope == "H" || $scope == "h" ]]; then
+if [[ $tscope == "H" || $tscope == "h" ]]; then
     tstart=$(date +"%Y-%m-%dT%H:00:00.000000Z")
     export start_time=$tstart
     echo "Logs start time: "${green}$tstart${reset}
     tend=$(date +"%Y-%m-%dT%H:59:59.999999Z")
     echo "Logs end time: "${green}$tend${reset}
     export end_time=$tend
-elif [[ $scope == "D" || $scope == "d" ]]; then
+elif [[ $tscope == "D" || $tscope == "d" ]]; then
     tstart=$(date +"%Y-%m-%dT00:00:00.000000Z")
     export start_time=$tstart
     echo "Logs start time: "${green}$tstart${reset}
@@ -102,7 +105,14 @@ fi
 echo "Search query: "${green}$fullquery${reset}
 # 
 echo "Search results:"
-oci logging-search search-logs --search-query "$fullquery" --time-start $start_time --time-end $end_time --limit 999999999 | jq '.data.results[].data.logContent.data.message'
+if [[ $format == "T" || $format == "t" ]]; then
+    oci logging-search search-logs --search-query "$fullquery" --time-start $start_time --time-end $end_time  | jq '.data.results[].data.logContent.data.message'
+elif [[ $format == "J" || $format == "j" ]]; then
+    oci logging-search search-logs --search-query "$fullquery" --time-start $start_time --time-end $end_time  | jq '.data.results[].data.logContent.data'
+else
+    usage
+fi
+#
 echo "End, bye!!"
 # EOF
 
