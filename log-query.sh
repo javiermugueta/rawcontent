@@ -7,7 +7,7 @@
 #
 usage() {
     echo 
-    echo "Searchs in the logs of the current hour or day, fulltext, case insensitive"
+    echo "Searches in the logs of the current hour or day, fulltext, case insensitive"
     echo
     echo "usage: ./log-query.sh <forrmat> <time-tscope> <search-string> <compartment-name> <log-group-name> <log-name>"
     echo "${red}<format>, <time-tscope>, <search-string> and <compartment-name> are mandatory"
