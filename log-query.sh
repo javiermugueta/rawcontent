@@ -1,5 +1,6 @@
 #!/bin/bash
-# jmu 10/Oct/2022
+# jmu 10/Oct/2022, new
+# jmu 18/10/2022, adding new flag M|m
 # this command searchs in the logs of the current hour
 # performing a fulltext search case insesnsitive
 #
@@ -12,7 +13,7 @@ usage() {
     echo "usage: ./log-query.sh <forrmat> <time-tscope> <search-string> <compartment-name> <log-group-name> <log-name>"
     echo "${red}<format>, <time-tscope>, <search-string> and <compartment-name> are mandatory"
     echo "${green}<format> can be J|j (json record) or T|t (just the message field)"
-    echo "<time-tscope> can be H|h (current hour) or D|d (current day)"
+    echo "<time-tscope> can be H|h (current hour), D|d (current day), M|m (maximum 14 days back)"
     echo "search-string special value: @@@ -> retrives all records${reset}"
     echo
     echo "examples:"
@@ -58,6 +59,20 @@ elif [[ $tscope == "D" || $tscope == "d" ]]; then
     export start_time=$tstart
     echo "Logs start time: "${green}$tstart${reset}
     tend=$(date +"%Y-%m-%dT23:59:59.999999Z")
+    echo "Logs end time: "${green}$tend${reset}
+    export end_time=$tend
+elif [[ $tscope == "M" || $tscope == "m" ]]; then
+    os=$(uname -a)
+    if echo "$os" | grep -q "Linux"; then
+        # linuxlike
+        tstart=$(date --date='-14 day' +"%Y-%m-%dT%H:%M:%S.000000Z")
+    elif echo "$os" | grep -q "Darwin"; then
+        # mac
+        tstart=$(date -v-14d +"%Y-%m-%dT%H:%M:%S.000000Z")
+    fi
+    export start_time=$tstart
+    echo "Logs start time: "${green}$tstart${reset}
+    tend=$(date +"%Y-%m-%dT%H:%M:%S.000000Z")
     echo "Logs end time: "${green}$tend${reset}
     export end_time=$tend
 else
