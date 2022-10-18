@@ -21,6 +21,7 @@ usage() {
     echo "./log-query.sh t d core.error.internal xplrDV PSD2_Dv"
     echo "./log-query.sh t d core.error.internal xplrDEV PSD2_Dv fnc_g_s_dv_nvk"
     echo "./log-query.sh j h @@@ xplrDV PSD_Dv fnc_g_s_dv_nvk"
+    echo "./log-query.sh j m @@@ xplrDV PSD_Dv fnc_g_s_dv_nvk"
     echo
     echo "${red}Please note that some kind of log records doesn't have a message field, use json forrmat instead"
     echo "Please note that number of records retrieved can be limited by the service"
