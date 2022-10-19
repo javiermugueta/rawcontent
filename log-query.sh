@@ -1,7 +1,7 @@
 #!/bin/bash
 # jmu 10/Oct/2022, new
 # jmu 18/10/2022, adding new flag M|m
-# this command searchs in the logs of the current hour
+# this command searchs in the logs of the current hour, day or last 14 days
 # performing a fulltext search case insesnsitive
 # see https://javiermugueta.blog/2022/10/11/googling-oci-logs-helper-utility-for-fulltext-search-in-the-logs-either-from-the-terminal-or-cloud-shell/
 #
@@ -9,12 +9,13 @@
 #
 usage() {
     echo 
-    echo "Searches in the logs of the current hour or day, fulltext, case insensitive"
+    echo "Searches in the logs of the current hour, day or past 14 days(the max possible), fulltext, case insensitive"
     echo
     echo "usage: ./log-query.sh <forrmat> <time-tscope> <search-string> <compartment-name> <log-group-name> <log-name>"
     echo "${red}<format>, <time-tscope>, <search-string> and <compartment-name> are mandatory"
     echo "${green}<format> can be J|j (json record) or T|t (just the message field)"
     echo "<time-tscope> can be H|h (current hour), D|d (current day), M|m (maximum 14 days back)"
+    echo "for H|h flag timezone of client must be same than OCI home region"
     echo "search-string special value: @@@ -> retrives all records${reset}"
     echo
     echo "examples:"
