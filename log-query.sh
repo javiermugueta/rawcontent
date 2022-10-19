@@ -3,6 +3,7 @@
 # jmu 18/10/2022, adding new flag M|m
 # this command searchs in the logs of the current hour
 # performing a fulltext search case insesnsitive
+# see https://javiermugueta.blog/2022/10/11/googling-oci-logs-helper-utility-for-fulltext-search-in-the-logs-either-from-the-terminal-or-cloud-shell/
 #
 # usage
 #
