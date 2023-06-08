@@ -37,14 +37,14 @@ docker tag ghcr.io/oracle/oci-cli:latest oci
 alias oci='docker run  -v ".oci:/oracle/.oci" oci'
 #alias oci='docker run --rm -it -v "$HOME/.oci:/oracle/.oci" oci'
 #oci os ns get
-docker run -v "oci:/oracle/.oci" oci os ns get
+docker run -v "oci:/oracle/.oci" ghcr.io/oracle/oci-cli:latest os ns get
 # create a new key pair
 openssl genrsa -out $ppkfile 2048       
 chmod go-rwx $ppkfile       
 openssl rsa -pubout -in $ppkfile -out $pubfile  
 #
 # upload a the new key                 
-newfp="$(docker run -v "oci:/oracle/.oci" oci iam user api-key upload --user-id $ociuser --key-file $pubfile | jq -r '.data.fingerprint')"
+newfp="$(docker run -v "oci:/oracle/.oci" ghcr.io/oracle/oci-cli:latest iam user api-key upload --user-id $ociuser --key-file $pubfile | jq -r '.data.fingerprint')"
 #
 # if the key is uploaded succesfully we delete the oldest one
 if  [[ $newfp == "" ]]; then
@@ -56,14 +56,14 @@ if  [[ $newfp == "" ]]; then
     exit 255
 else
     # looping existing fingerprints, deleting the ones that are not the new
-    fps=$(docker run  -v "oci:/oracle/.oci" oci iam user api-key list --user-id $ociuser | jq '.data[]' | jq -r ."fingerprint")
+    fps=$(docker run  -v "oci:/oracle/.oci" ghcr.io/oracle/oci-cli:latest iam user api-key list --user-id $ociuser | jq '.data[]' | jq -r ."fingerprint")
     for fp in $fps 
     do
         if [[ $fp != $newfp ]]; then
             echo "Fingerprint to delete: " $fp
             # deleting old, swap comment to skip confirmation
             # force
-            docker run  -v "oci:/oracle/.oci" oci iam user api-key delete --force --user-id $ociuser --fingerprint $finger
+            docker run  -v "oci:/oracle/.oci" ghcr.io/oracle/oci-cli:latest iam user api-key delete --force --user-id $ociuser --fingerprint $finger
             # interactive
             #oci iam user api-key delete --user-id $ociuser --fingerprint $fp
         fi
