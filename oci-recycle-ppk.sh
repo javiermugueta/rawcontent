@@ -34,7 +34,8 @@ fi
 #
 docker pull ghcr.io/oracle/oci-cli:latest
 docker tag ghcr.io/oracle/oci-cli:latest oci
-alias oci='docker run --rm -it -v "$HOME/.oci:/oracle/.oci" oci'
+alias oci='docker run --rm -it -v ".oci:/oracle/.oci" oci'
+#alias oci='docker run --rm -it -v "$HOME/.oci:/oracle/.oci" oci'
 oci os ns get
 # create a new key pair
 openssl genrsa -out $ppkfile 2048       
