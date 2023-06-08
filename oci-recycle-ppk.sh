@@ -37,14 +37,14 @@ docker tag ghcr.io/oracle/oci-cli:latest oci
 alias oci='docker run  -v ".oci:/oracle/.oci" oci'
 #alias oci='docker run --rm -it -v "$HOME/.oci:/oracle/.oci" oci'
 #oci os ns get
-docker run -v "oci:/oci" ghcr.io/oracle/oci-cli:latest --config-file /oci/config os ns get
+docker run -v "oci:/oracle/.oci" ghcr.io/oracle/oci-cli:latest --config-file /oci/config os ns get
 # create a new key pair
 openssl genrsa -out $ppkfile 2048       
 chmod go-rwx $ppkfile       
 openssl rsa -pubout -in $ppkfile -out $pubfile  
 #
 # upload a the new key                 
-newfp="$(docker run -v "oci:/oci" ghcr.io/oracle/oci-cli:latest --config-file /oci/config iam user api-key upload --user-id $ociuser --key-file $pubfile | jq -r '.data.fingerprint')"
+newfp="$(docker run -v "oci:/oracle/.oci" ghcr.io/oracle/oci-cli:latest --config-file /oci/config iam user api-key upload --user-id $ociuser --key-file $pubfile | jq -r '.data.fingerprint')"
 #
 # if the key is uploaded succesfully we delete the oldest one
 if  [[ $newfp == "" ]]; then
